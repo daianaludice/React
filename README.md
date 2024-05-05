@@ -38,3 +38,18 @@ npm ERR! enoent ENOENT: no such file or directory 등등... <br>
 패키지 설치 과정을 넘어가서 생긴 오류일 가능성이 높다고 한다 <br>
 
 따라서 npm -g install create-react-app 를 해주고 다시 npx create-react-app my-app를 실행한다 <br>
+
+<b>createElement</b> <br><br>
+React.createElement( <br>
+  type, -> html태그 나 리액트컴포넌트 가 들어간다. <br>
+  [props], -> 속성이 들어간다 <br>
+  [...children] -> 현재 엘리먼트가 포함하는 자식 엘리먼트<br>
+  ) <br>
+
+  리액트에서 JSX 사용이 필수는 아니지만 장점이 많기때문에 사용하면 편함! <br>
+
+<h2> JSX의 장점 </h2> 
+1. 코드가 간결해짐 <br>
+  
+
+
