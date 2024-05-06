@@ -50,6 +50,11 @@ React.createElement( <br>
 
 <h2> JSX의 장점 </h2> 
 1. 코드가 간결해짐 <br>
+2. 가독성 향상 <br>
+3. 버그를 발견하기 쉬움.
+4. injection Attacks 방어
+
+
   
 
 
