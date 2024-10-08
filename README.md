@@ -46,15 +46,54 @@ React.createElement( <br>
   [...children] -> 현재 엘리먼트가 포함하는 자식 엘리먼트<br>
   ) <br>
 
+
+  
+
   리액트에서 JSX 사용이 필수는 아니지만 장점이 많기때문에 사용하면 편함! <br>
 
 <h2> JSX의 장점 </h2> 
 1. 코드가 간결해짐 <br>
 2. 가독성 향상 <br>
-3. 버그를 발견하기 쉬움.
-4. injection Attacks 방어
+3. 버그를 발견하기 쉬움. <br>
+4. injection Attacks 방어 <br>
+<br>
+<br>
+
+=====사용방법======== <br>
+기본적으로 javascript 문법은 전부 사용가능하며 + XML/HTML 섞어서 사용가능하다. html사용즁 {} 를 사용해 javascript 문법을 사용할 수 있다. <br>
+태그의 속성에 값을 넣는 방법 : "" 사이에 문자열을 넣거나 {}사이에 자바스크립트 코드를 넣으면 된다. <br>
+children을 정의하는 방법 : html처럼 상위태그가 하위태그를 둘러싸도록하면 된다.
+
+<br> 주의점 <br>
+
+  jsx 사용시 문자열 부분에 '이 아닌 백틱을 사용해야 한다. (Template literals는 Backtick(`)이라고 부르는 역따옴표 기호사용)
+
+<br>
+
+<h2> Elements </h2>
+
+React.createElement(tyep,[props],[...chlidren]) 형태로 생성된다. <br>
+
+-React elements는 Dom elements의 가상 표현. dom은 많은 정보를 가지고있어서, 무겁고 크다. <br>
+-React elements는 자바스크립트 객체 형태로 존재한다. <br>
+-Elements 생성후에는 children이나 attributes를 바꿀 수 없다  <br>
+모든 react 웹에 필수적으로 들어가는 Root DOM NODE <div id="root"></div> 안에 엘리먼트들이 랜더링된다.  <br>
+const element 생성 후 ReactDOM.render (element, document.getElementById('root')); 로 돔 엘리먼트에 element를 랜더링한다. ( 리액트 엘리먼트와 돔 엘리먼트는 별개임을 유의)  <br>
+랜더링된 엘리먼트 업데이트하려면? 엘리먼트의 불변성때문에 계속 새 엘리먼트를 생성하여 교체하는것이다.  <br>
+<br>
+
+<h2> Components </h2> 
+-리액트는 모든 페이지가 컴포넌트로 구성되어 있다. 레고 블록을 조립하듯 컴포넌트들을 모아 개발 <br>
+-개념적으로 자바스크립트의 함수와 비슷하다. 입출력이 다르다. <br>
 
 
-  
+<h2> Props </h2> 
+-props 는 컴포넌트에 전달할 다양한 정보를 담고 있는 자바스크립트 객체이다. <br>
+-값을 변경할 수 없다.
+
+
+
+
+
 
 
