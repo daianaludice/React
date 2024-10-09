@@ -20,6 +20,11 @@
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>  <br>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script> <br><br>
 
+크롬 개발자 도구로 리액트 분석하기 <br><br>
+
+React Developer Tools 설치하여 컴포넌트와 프로파일러를 통해 랜더링 시간,재랜더링 등 확인 가능<br>
+불필요하거나 무거운 컴포넌트를 찾아서 최적화 가능 <br><br>
+
 만든 React 컴포넌트를 실행/가져오기 <br>
 <script src="내가 만든 컴포넌트.js"></script> <br>
 
@@ -90,6 +95,7 @@ const element 생성 후 ReactDOM.render (element, document.getElementById('root
 - function 컴포넌트와 class 컴포넌트로 나눌 수 있다. <br>
 - 함수 컴포넌트는 간단함. 클래스 컴포넌트는 상속을 받는다. <br>
 - 컴포넌트의 이름은 항상 대문자로 시작해야한다! (리액트는 소문자로 시작하는 컴포넌트는 DOM으로 인식하기 때문) <br>
++모든 클래스 컴포넌트에는 constructor함수가 존재하는데 클래스가 생성될때 실행되는 함수이다. <br> 
 ====합성과 추출==== <br>
 
 여러개의 컴포넌트를 합쳐서 여러 컴포넌트를 만드는 것이 합성 <br>
@@ -107,10 +113,57 @@ const element 생성 후 ReactDOM.render (element, document.getElementById('root
 =====모든 리액트 컴포넌트는 props를 직접 바꿀 수 없고, 같은 props에 대해서는 항상 같은 결과를 보여줄것!==== <br>
 따라서 jsx를 사용하여 함수를 만들때, 문자열 등은 ""으로 바로 넣지만 props의 값을 넣을때 정수,변수,다른 컴포넌트 등이 들어갈 경우 {} 안에 넣어야한다! 물론, 문자열도 넣을 수 있다.
 
+<h2> State and lifecycle </h2> <br> 
+-state : 리액트 컴포넌트의 변경 가능한 데이터를 의미. (개발자가 정의한다) <br> 
+-랜더링이나 데이터 흐름에 사용되는 값만 state에 포함시켜야한다. <br> 
+- 스테이트는 자바스크립트의 객체이다. <br> 
+-스테이트는 직접 수정 할 수 없다.(하면 안된다.) <br> 
+-클래스 컴포넌트에서 스테이트를 수정할때에는 직접 수정이 아닌 꼭 setstate함수를 사용해야한다. <br> 
+<b> lifecycle</b> <br> 
+Mounting -> Updating -> Unmounting (생명주기) <br>  <br>
 
+<h2> Hook </h2> <br> 
+함수 컴포넌트에 클래스 컴포넌트의 스테이트 정의 및 업데이트,라이프사이클에 따른 기능 구현을 가능하게 하는 게 Hook  <br>
+use를 앞에 붙여서 쓴다. 훅임을 알려줌 <br>
+useState() : 스테이트를 생성하고 업데이트함. 사용법 : const [변수명,set함수명] = useState(초기값); ->라턴값으로 배열이 나온다  <br>
+(HOOK/useState.js 참고) <br><br>
+useEffect() : side effect(부작용이라는 의미) 를 수행하기 위한 훅. =효과,영향이라는 의미로 사용하는거임. 리액트의 함수 컴포넌트에서 side effect를 실행할 수 있게 해주는 훅.(생명주기 함수와 동일한기능) <br>
+사용법: useEffect(이펙트 함수, 의존성 배열);   <br> 
+예시 useEffect(이펙트 함수,[]); -> mount,unmount 시에 단 한번씩만 실행됨. 의존성 배열을 생략할 경우 컴포넌트가 업데이트 될때마다 호출 됨 <br><br>
+useEffect(( => { <br>
+//컴포넌트가 마운트 된 이후,<br>
+//의존성 배열에 있는 변수들 중 하나라도 값이 변경되었을 때 실행<br>
+//의존성 배열에 빈 배열을 넣으면 마운트와 언마운트시에 단 한 번씩만 실행됨<br>
+//의존성 배열 생략시 컴포넌트가 업데이트 시마다 실행됨<br>
+<br>
+return () => {<br>
+//컴포넌트가 마운트 해제되기 전에 실행됨<br>
+}<br>
+}, [의존성 변수1,의존성 변수2,...]);<br><br>
 
+useMemo() : Memoized value(최적화를 위해 사용하는 개념,자주 사용하는 값을 기억해놨다가 바로 호출하는 값.)를 리턴하는 훅.<br>
+사용법 : <br> cont memoizedValue = useMemo(  <br>
+ () => { <br>
+   return computeExpensiveValue(의존성 별수1,의존성 변수2); <br>
+ }, <br>
+ [의존성 변수1, 의존성 변수2] <br>
+); <br>
+<br>
+의존성 변수가 변했을 때에는 값을 바꿔서 반환, 아니면 이전 값을 그대로 반환 <br>
+빠른 랜더링 속도를 얻을 수 있다. 랜더링이 일어나는 순간 작업되기때문에 이 시간에 작업되면 안 될 함수를 넣지말아야한다. <br>
+예를 들면, useEffect에서 실행되는 side effect같은 것들이 있다. <br>
+또한, 의존성 배열을 넣지 않을 경우, 매 랜더링마다 함수가 실행된다. 따라서 의존성 배열을 넣지않는건 아무 의미 없다. 단,빈 배열을 넣을 경우, 마운트시에만 호출됨. 컴포넌트 마운트 시에만 한번 사용하고싶을 경우는 OK. <br> <br>
 
+useCallback() : useMemo와 유사하지만 값이 아닌 함수를 변환하다. 의존성 배열이 바뀔 때마다 함수를 리턴해준다. <br>
+사용법 : <br>
+const memoizedCallback = useCallback( <br>
+  () => { <br>
+    doSomething(의존성 변수1, 의존성 변수2); <br>
+  }, <br>
+  [의존성 변수1, 의존성 변수2] <br>
+); <br><br>
 
+따라서 useCallback(함수,의존성 배열) 과 useMemo(() => 함수,의존성 배열) 은 동일한 역할을 한다.
 
 
 
