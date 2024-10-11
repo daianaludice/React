@@ -163,7 +163,36 @@ const memoizedCallback = useCallback( <br>
   [의존성 변수1, 의존성 변수2] <br>
 ); <br><br>
 
-따라서 useCallback(함수,의존성 배열) 과 useMemo(() => 함수,의존성 배열) 은 동일한 역할을 한다.
+따라서 useCallback(함수,의존성 배열) 과 useMemo(() => 함수,의존성 배열) 은 동일한 역할을 한다. <br>
+
+Hook의 규칙과 custom Hook 만들기 <br>
+- Hook은 무조건 최상위 레벨(리액트 함수 컴포넌트의)에서만 호출해야한다. <br>
+- Hook은 컴포넌트가 랜더링될 때마다 매번 같은 순서로 호출되어야한다. <br>
+- 래익트 함수 컴포넌트에서만 Hook을 호출해야한다. 자바스크립트에서는 X. <br>
+=====> 도움이 되는 플러그인 : eslint-plugin-react-hooks : 훅의 규칙을 따르도록 도와줌. 코드분석도구. 의존성 배열이 잘못되어있을 경우 고칠 방법을 제안해줌 <br>
+  Coustom Hook 만들기 <br>
+이름이 use로 시작하고 내부에서 다른 Hook을 호출하는 하나의 자바스크립트 함수이다. <br>
+여러 개의 컴포넌트에서 하나의 Custom Hook을 사용할때 컴포넌트 내부에 있는 모든 state와 effects는 전부 분리되어 있다. <br>
+각 Custom Hook 호출 또한 완전히 독립적이며 호출에 대해서 분리된 state를 얻게 된다. <br>
+Hook들 사이에서 데이터를 공유하는 방법 : useState를 통해 생성된 변수를 props로 가져가면서 공유하도록 사용 가능함 <br>
+
+==> 예제 HOOK /  useCounter.jsx,Accommodate.jsx 참고 <br>
+<br><br><br>
+
+ <h2> Event 정의 및 다루기 </h2> <br> 
+ - callback에서 'this'를 사용하기 위해서는 바인딩을 필수적으로 해줘야한다. ex) this.handleClick = this.handClick.bind(this); <br> 
+ - 바인딩하기 싫다면 이벤트 핸들러를 넣는곳에 arror function을 사용하는 방법도 있다. ->랜더링(성능) 문제가 발생함으로 바인딩이나 클래스필드신택스를 사용하는것을 권장  <br> 
+ - 사용법 1 : 함수 안에 함수로 정의 ex) setIsToggleOn((isToggleOn) => !isToggleOn); <br> 
+ - 사용법 2 : arrow function을 사용하여 정의 const handleClick = () => { setIsToggleOn((isToogleon) => !isToggleOn};} <br> 
+ - Argument 전달하기 : 함수에 전달할 데이터 <br> 
+ - arrow function 사용 : button onClick={{event) => this.deleteItem(id,event)}>삭제하기</button <br> 
+ - 바인딩 : button onClick={this.deleteItem.bind(this, id)}>삭제하기</button <br> 
+  = > 위의 두 방법들은 클래스용임으로 지금은 거의 사용하지 않는다. <br> 
+ - button onClick={(event) => handleDelete(1,event)}>삭제하기</button 이런 식으로 쓰면 된다! <br> 
+ 
+ 
+ 
+
 
 
 
